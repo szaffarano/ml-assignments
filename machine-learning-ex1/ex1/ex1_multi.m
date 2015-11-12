@@ -81,6 +81,55 @@ X = [ones(m, 1) X];
 
 fprintf('Running gradient descent ...\n');
 
+% Test different alpha and iterations combinations
+
+% Choose some alpha value
+alphas = [
+	0.03;
+	0.1;
+	0.8 
+];
+
+alpha_colours = { 
+	'b';
+	'r';
+	'g';
+	'o' 
+};
+
+iters_lines = {
+	'-';
+	'--';
+	':'	
+};
+
+nums_iters = [
+	100;
+	300;
+	500
+];
+
+
+figure;
+xlabel('Number of iterations');
+ylabel('Cost J');
+hold on;
+
+for j = 1:length(nums_iters)
+	for i = 1:length(alphas)
+		% Init Theta and Run Gradient Descent 
+		theta = zeros(3, 1);
+		[theta, J_history] = gradientDescentMulti(X, y, theta, alphas(i), nums_iters(j));
+
+		% Plot the convergence graph
+		plot(1:numel(J_history), J_history, sprintf('%s%s', iters_lines{j}, alpha_colours{i}), 'LineWidth', 2);
+		legends(i+j-1) = { sprintf('alpha: %d - iters: %d', alphas(i), nums_iters(j)) };
+		%disp(p);
+	end
+end
+legend(legends);
+
+
 % Choose some alpha value
 alpha = 0.3;
 num_iters = 300;
@@ -88,12 +137,6 @@ num_iters = 300;
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
 [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
-
-% Plot the convergence graph
-figure;
-plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
-xlabel('Number of iterations');
-ylabel('Cost J');
 
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
