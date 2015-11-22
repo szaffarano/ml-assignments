@@ -12,17 +12,20 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+% exam #1 scores
+E1 = X(:, 1);
 
+% exam #2 scores
+E2 = X(:, 2);
 
+plot(E1(y == 1), E2(y == 1), 'k+', 'LineWidth', 2, 'MarkerSize', 7);
+plot(E1(y == 0), E2(y == 0), 'ko', 'LineWidth', 2, 'MarkerFaceColor', 'y', 'MarkerSize', 7);
 
-
-
-
-
+xlabel('Exam 1 score');
+ylabel('Exam 2 score');
+legend('Admited', 'Not admited');
 
 % =========================================================================
-
-
 
 hold off;
 
