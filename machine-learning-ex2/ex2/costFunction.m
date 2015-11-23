@@ -20,12 +20,19 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+J = (-1 / m) * (log (sigmoid(X * theta))' * y + log (1 - sigmoid(X * theta))' * (1 - y));
 
+% gradient vectorized calculation 
+grad = (X' * (sigmoid(X * theta) - y)) / m;
 
-
-
-
-
+% gradient 'for loop' calculation
+%n = length(theta);
+%for j = 1:n
+%	for i = 1:m
+%		grad(j)  += (sigmoid (theta' * X(i,:)') - y(i)) * X(i, j);
+%	end
+%	grad(j) = grad(j) / m;
+%end
 
 % =============================================================
 
