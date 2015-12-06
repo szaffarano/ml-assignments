@@ -24,7 +24,8 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
+K = num_labels;
+
 % You need to return the following variables correctly 
 J = 0;
 Theta1_grad = zeros(size(Theta1));
@@ -62,22 +63,30 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% add bias in column one
+X = [ones(m, 1) X];
 
+% part 1: cost calculation
+for i = 1:m
+	% recode label y(i) as a vector of K rows
+	label = zeros(K, 1);
+	label(y(i)) = 1;
 
+	a1 = X(i, :);
+	z2 = Theta1 * a1';
+	a2 = sigmoid(z2)';
 
+	a2 = [ones(size(a2, 1), 1) a2];
+	
+	z3 = (Theta2 * a2')';
+	a3 = sigmoid(z3);
+	
+	for k = 1:K
+		J += -label(k) * log(a3(k)) - (1 - label(k)) * log (1 - a3(k));
+	end
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
+J = J / m;
 
 
 % -------------------------------------------------------------
