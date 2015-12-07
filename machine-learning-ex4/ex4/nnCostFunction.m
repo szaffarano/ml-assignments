@@ -98,6 +98,16 @@ delta_2 = d3' * a2;
 Theta1_grad = delta_1 / m;
 Theta2_grad = delta_2 / m;
 
+% part 3: gradient regularization
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+
+Theta1 = (Theta1 * lambda) / m;
+Theta2 = (Theta2 * lambda) / m;
+
+Theta1_grad += Theta1;
+Theta2_grad += Theta2;
+
 % -------------------------------------------------------------
 
 % =========================================================================
